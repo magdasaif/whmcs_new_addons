@@ -1,0 +1,31 @@
+<?php
+$license = 'WHMCS-358885WCAiK';
+$db_host = 'localhost';
+$db_port = '';
+$db_username = 'whmcsmurabba_devwhmcsusr';
+// $db_password = '4,iJR^sEM#OB';
+$db_password = 'jQ4q2o_Mo]Dt';
+$db_name = 'whmcsmurabba_devwhmcsdb';
+$db_tls_ca = '';
+$db_tls_ca_path = '';
+$db_tls_cert = '';
+$db_tls_cipher = '';
+$db_tls_key = '';
+$db_tls_verify_cert = '';
+$cc_encryption_hash = 'lfHr0yzLenp6c1XF1rgtYvDMutrrUsmUNib3rbyyToSiyb2FSZi1xCN6tt0onZBj';
+//$templates_compiledir = 'templates_c';
+$mysql_charset = 'utf8';
+//////////////////////////////////////////////
+#$templates_compiledir = 'templates_c/';
+$customadminpath = 'WMAA';
+$api_access_key = 'MDWHMCSAPIAK';
+##require(dirname(__FILE__).'/bridgeipfix.php');
+$templates_compiledir = '/home/whmcsmurabba/whmcs-writable-stuff/templates_c/';
+$crons_dir = '/home/whmcsmurabba/whmcs-writable-stuff/crons/';
+$projects_dir = '/home/whmcsmurabba/whmcs-writable-stuff/attachments/projects/';
+$attachments_dir = '/home/whmcsmurabba/whmcs-writable-stuff/attachments/';
+$downloads_dir = '/home/whmcsmurabba/whmcs-writable-stuff/downloads/';
+#$smtp_debug = true;
+//$display_errors=true;
+#$pop_cron_debug = true;
+#$autoauthkey = "zyAnfpsytheIwitlsoxp2mxybyxot7";
