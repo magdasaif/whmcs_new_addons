@@ -59,69 +59,64 @@ if (!defined("WHMCS")) {
 function superadminaddonmodule_config()
 {
     return [
-        // Display name for your module
-        'name' => 'SuperAdmin Addon Module',
-        // Description displayed within the admin interface
-        'description' => 'This module provides an example WHMCS Addon Module'
-            . ' which can be used as a basis for building a custom addon module.',
-        // Module author name
-        'author' => 'magda',
-        // Default language
-        'language' => 'english',
-        // Version number
-        'version' => '1.0',
+        
+        'name'          => 'SuperAdmin Addon Module',// Display name for your module
+        'description'   => 'This module provides an example WHMCS Addon Module'  . ' which can be used as a basis for building a custom addon module.',// Description displayed within the admin interface
+        'author'        => 'magda',// Module author name
+        'language'      => 'english',// Default language
+        'version'       => '1.0',// Version number
         // 'fields' => [
-        //     // a text field type allows for single line text input
-        //     'tenant_id' => [
-        //         'FriendlyName' => 'Tenant',
-        //         'Type' => 'text',
-        //         'Size' => '25',
-        //         'Default' => 'Default value',
-        //         'Description' => 'name for tenant (will be tenant_id)',
-        //     ],
-        //     // // a password field type allows for masked text input
-        //     // 'Password Field Name' => [
-        //     //     'FriendlyName' => 'Password Field Name',
-        //     //     'Type' => 'password',
-        //     //     'Size' => '25',
-        //     //     'Default' => '',
-        //     //     'Description' => 'Enter secret value here',
-        //     // ],
-        //     // // the yesno field type displays a single checkbox option
-        //     // 'Checkbox Field Name' => [
-        //     //     'FriendlyName' => 'Checkbox Field Name',
-        //     //     'Type' => 'yesno',
-        //     //     'Description' => 'Tick to enable',
-        //     // ],
-        //     // the dropdown field type renders a select menu of options
-        //     'project_id' => [
-        //         'FriendlyName' => 'Project',
-        //         'Type' => 'dropdown',
-        //         'Options' => [
-        //             'option1' => 'Eradonline',
-        //             'option2' => 'Sidalih',
-        //             'option3' => 'Visitor',
-        //         ],
-        //         'Default' => 'option1',
-        //         'Description' => 'Choose one project',
-        //     ],
-        //     // the radio field type displays a series of radio button options
-        //     'deployment_project_type' => [
-        //         'FriendlyName' => 'Deployment Type',
-        //         'Type' => 'radio',
-        //         'Options' => 'product,project',
-        //         'Default' => 'product',
-        //         'Description' => 'Choose your deployment_project_type!',
-        //     ],
-        //     // // the textarea field type allows for multi-line text input
-        //     // 'Textarea Field Name' => [
-        //     //     'FriendlyName' => 'Textarea Field Name',
-        //     //     'Type' => 'textarea',
-        //     //     'Rows' => '3',
-        //     //     'Cols' => '60',
-        //     //     'Default' => 'A default value goes here...',
-        //     //     'Description' => 'Freeform multi-line text input field',
-        //     // ],
+            //     // a text field type allows for single line text input
+            //     'tenant_id' => [
+            //         'FriendlyName' => 'Tenant',
+            //         'Type' => 'text',
+            //         'Size' => '25',
+            //         'Default' => 'Default value',
+            //         'Description' => 'name for tenant (will be tenant_id)',
+            //     ],
+            //     // // a password field type allows for masked text input
+            //     // 'Password Field Name' => [
+            //     //     'FriendlyName' => 'Password Field Name',
+            //     //     'Type' => 'password',
+            //     //     'Size' => '25',
+            //     //     'Default' => '',
+            //     //     'Description' => 'Enter secret value here',
+            //     // ],
+            //     // // the yesno field type displays a single checkbox option
+            //     // 'Checkbox Field Name' => [
+            //     //     'FriendlyName' => 'Checkbox Field Name',
+            //     //     'Type' => 'yesno',
+            //     //     'Description' => 'Tick to enable',
+            //     // ],
+            //     // the dropdown field type renders a select menu of options
+            //     'project_id' => [
+            //         'FriendlyName' => 'Project',
+            //         'Type' => 'dropdown',
+            //         'Options' => [
+            //             'option1' => 'Eradonline',
+            //             'option2' => 'Sidalih',
+            //             'option3' => 'Visitor',
+            //         ],
+            //         'Default' => 'option1',
+            //         'Description' => 'Choose one project',
+            //     ],
+            //     // the radio field type displays a series of radio button options
+            //     'deployment_project_type' => [
+            //         'FriendlyName' => 'Deployment Type',
+            //         'Type' => 'radio',
+            //         'Options' => 'product,project',
+            //         'Default' => 'product',
+            //         'Description' => 'Choose your deployment_project_type!',
+            //     ],
+            //     // // the textarea field type allows for multi-line text input
+            //     // 'Textarea Field Name' => [
+            //     //     'FriendlyName' => 'Textarea Field Name',
+            //     //     'Type' => 'textarea',
+            //     //     'Rows' => '3',
+            //     //     'Cols' => '60',
+            //     //     'Default' => 'A default value goes here...',
+            //     //     'Description' => 'Freeform multi-line text input field',
+            //     // ],
         // ]
     ];
 }

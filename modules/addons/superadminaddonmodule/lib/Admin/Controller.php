@@ -22,10 +22,10 @@ class Controller {
      */
     public function index($vars){
 
+        return 'this model for handling extra details related to project/group and tenant details.';
         // return $dashboard_agent_data   = $this->fetchProjectAgentData(70,2,14,'');
         
-        return $this->sendCustomMail();
-        return 'this model for handling extra details related to project/group and tenant details.';
+        // return $this->sendCustomMail();
 
         // return view('superadmin.tenant.index');
         print_r($this->retrieveDashboardData(70,2,14));
@@ -219,7 +219,7 @@ class Controller {
        Capsule::table('tblerrorlog')->insert(['severity' => 'curl request url', 'details' => $url]);
 
        //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    //using curl
+        //using curl
         // Create a new cURL resource
         $ch = curl_init();
     
