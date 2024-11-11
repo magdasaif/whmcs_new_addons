@@ -1,7 +1,6 @@
-===============================================================================
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//create new addon module 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+create new addon module 
+=
 
 i download  https://github.com/WHMCS/sample-addon-module
 
@@ -20,10 +19,10 @@ handle extra implmentation in hooks.php file
 save changes 
 
 make sure new module folder locate in modules/addons directory
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-===============================================================================
+=
+---
 [ main functionality for this addon ]
-===============================================================================
+=
     1- handle AfterModuleCreate hook action to configure tenant dbs and project files if cpanel server choosen
     2- after activate addon, new tables created like[
         project_services        --> that will store all services for available project
@@ -59,6 +58,3 @@ make sure new module folder locate in modules/addons directory
             currentClient
         ]
     6- blade views for those links/forms will be located in resource root directory in resources/views/superadmin
-
-
-===============================================================================

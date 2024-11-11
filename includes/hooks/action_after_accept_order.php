@@ -97,6 +97,7 @@ function projectServiceDetails($order_id){
 }
 //=================================================================
 function fetchDeploymentType($package_data){
+    $deployment_project_type='product';
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //check if found deployment type for package in package_extra_details table , take it 
     //not found , fetch its value depend on server type with this product

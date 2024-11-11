@@ -1,7 +1,5 @@
-===============================================================================
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//create new provisioning module
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+create new provisioning module
+=
 
 A module is a collection of functions that provide additional functionality to the WHMCS platform, most commonly used to integrate with third party services and APIs.
 
@@ -13,7 +11,7 @@ The first step in creating a module for WHMCS is determining which type of modul
 
 * then ,upload module files in selected module type directory 
 
-//--------------------------------------------------------------------------------
+---
 
 1-i download  https://github.com/WHMCS/sample-provisioning-module
 
@@ -33,14 +31,12 @@ The first step in creating a module for WHMCS is determining which type of modul
 
 8-make sure new module folder locate in modules/servers directory
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-===============================================================================
+
 [ main functionality for this addon ]
-===============================================================================
+=
     1- change in superadminmodule_ClientArea function to retrieve extra details for selected package to be displayed in client area
     2- handle new template files that will be displayed [
         templates/manage.tpl
         templates/productextradetails.tpl
     ]
     3- display superadmin Services in client primary navbar in client area
-===============================================================================

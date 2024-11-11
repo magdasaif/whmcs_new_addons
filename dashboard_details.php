@@ -48,7 +48,7 @@ function retrieveDashboardData($tenant_id,$project_id,$package_id){
 function retrieveCustomFeildValue($feild_name,$package_id,$tenant_id){
     // echo 'bbbbbbbbbbbbbbb';
     $value=false;
-    //check if found value for custome fieldname for dashboaed data or no
+    //check if found value for custome fieldname for dashboard data or no
     $fieldname_detail_for_username=Capsule::table('tblcustomfields')->where(['fieldname'=>$feild_name,'type'=>'product','relid'=>$package_id])->first();
     if(isset($fieldname_detail_for_username)){
         //check found value or no

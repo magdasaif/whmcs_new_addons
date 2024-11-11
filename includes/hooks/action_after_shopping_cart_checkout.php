@@ -25,11 +25,11 @@ add_hook('AfterShoppingCartCheckout', 1, function($vars) {
         {"OrderID":54,"OrderNumber":"4605195931","ServiceIDs":[49],"DomainIDs":[],"AddonIDs":[],"UpgradeIDs":[],"RenewalIDs":[],"PaymentMethod":"paypal","InvoiceID":101,"TotalDue":"2.99","Products":[49],"Domains":[],"Addons":[],"Renewals":[],"ServiceRenewals":[],"AddonRenewals":[]}
     */
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // Capsule::table('tblerrorlog')->insert([
-    //     'severity'  => 'test-hook',
-    //     'message'   => 'AfterShoppingCartCheckout, order -->'.$orderid,
-    //     'details'  => json_encode($vars)
-    // ]) ;
+    Capsule::table('tblerrorlog')->insert([
+        'severity'  => 'test-hook',
+        'message'   => 'AfterShoppingCartCheckout, order -->'.$vars['OrderID'],
+        'details'   => json_encode($vars)
+    ]) ;
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //
     // we will fetch package_id from host whose id in response ServiceIDs
@@ -56,13 +56,17 @@ add_hook('AfterShoppingCartCheckout', 1, function($vars) {
     // }
 
     $deployment_project_type=fetchDeploymentType($package_data);
+     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // Capsule::table('tblerrorlog')->insert([
+    //     'severity'  => 'test-hook',
+    //     'message'   => 'fetchDeploymentType',
+    //     'details'  => json_encode($deployment_project_type)
+    // ]) ;
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     //handle db from project_services table for selected project
     $project_dbs            = Capsule::table('project_services')->where('project_id',$project_id)->pluck('db_path','name')->toArray();   //store as array
-    $tenancy_db_details     =  json_encode($project_dbs); 
-
-
+    $tenancy_db_details     = json_encode($project_dbs);
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     Capsule::table('tenant_extra_details')->insert([
         'tenant_id'                 => $tenant_id,
@@ -77,7 +81,100 @@ add_hook('AfterShoppingCartCheckout', 1, function($vars) {
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //TODO , here we need to check or handle custom fields
     fetchProjectAgentData($tenant_id,$project_id,$package_id,'',false);//tenant domian not set yet , so when accept order we will update dashboard url with the help of domain 
+    //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //start to send this data to external endpoint
+    $postData = [
+        'details' => handleOrderObject($vars),
+        // Include any other necessary parameters
+    ];
+    sendPostDataToErp('https://n8n.murabba.dev/webhook/new-order',$postData,'order_created');
+    //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 });
+//=================================================================
+function handleOrderObject($order){
+    // {"OrderID":54,"OrderNumber":"4605195931","ServiceIDs":[49],"DomainIDs":[],"AddonIDs":[],"UpgradeIDs":[],"RenewalIDs":[],"PaymentMethod":"paypal","InvoiceID":101,"TotalDue":"2.99","Products":[49],"Domains":[],"Addons":[],"Renewals":[],"ServiceRenewals":[],"AddonRenewals":[]}
+
+    $tenant_id      = $order['ServiceIDs'][0];//host_id
+    
+    $host_data      = Capsule::table('tblhosting')->where('id',$tenant_id)->first();
+    $package_id     = $host_data->packageid;//product_id
+    
+    $package_data   = Capsule::table('tblproducts')->where('id',$package_id)->first();
+    $project_id     = $package_data->gid;//group_id
+
+    $client_data    = Capsule::table('tblclients')->where('id',$host_data->userid)->first();
+
+    //******************************************************************* */
+    $order_details=[
+        'order_details'=>[
+            'order_id'       => $order['OrderID'],
+            'order_number'   => $order['OrderNumber'],
+            'payment_method' => $order['PaymentMethod'],
+        ]
+    ];
+    //******************************************************************* */    
+    $host_details=[
+        'host_details'=>[
+            'host_id'       => $tenant_id,
+            'domain'        => $host_data->domain,
+            'domain_status' => $host_data->domainstatus,
+        ]
+    ];
+    //******************************************************************* */
+    $product_details=[
+        'product_details'=>[
+            'product_id'    => $host_data->packageid,
+            'product_name'  => $package_data->name,
+        ]
+    ];
+    //******************************************************************* */
+    $invoice_details=[];
+    if($order['InvoiceID']!=0){
+        
+        $invoice_data    = Capsule::table('tblinvoices')->where('id',$order['InvoiceID'])->first();
+
+        $invoice_details=[
+            'invoice_details'=>[
+                'invoice_id'     => $order['InvoiceID'],
+                'date'           => $invoice_data->date,
+                'duedate'        => $invoice_data->duedate,
+                'subtotal'       => $invoice_data->subtotal,
+                'credit'         => $invoice_data->credit,
+                'tax'            => $invoice_data->tax,
+                'tax2'           => $invoice_data->tax2,
+                'total'          => $invoice_data->total,
+                'taxrate'        => $invoice_data->taxrate,
+                'taxrate2'       => $invoice_data->taxrate2,
+                'paymentmethod'  => $invoice_data->paymentmethod,
+                'paymethodid'    => $invoice_data->paymethodid,
+                'notes'          => $invoice_data->notes,
+                'created_at'     => $invoice_data->created_at,
+            ]
+        ];
+    }
+    //******************************************************************* */
+    $client_details=[
+        'client_details'=>[
+            'client_id'         => $client_data->id,
+            'firstname'         => $client_data->firstname,
+            'lastname'          => $client_data->lastname,
+            'companyname'       => $client_data->companyname,
+            'email'             => $client_data->email,
+            'address1'          => $client_data->address1,
+            'city'              => $client_data->city,
+            'state'             => $client_data->state,
+            'postcode'          => $client_data->postcode,
+            'country'           => $client_data->country,
+            'phonenumber'       => $client_data->phonenumber,
+            'status'            => $client_data->status,
+            'defaultgateway'    => $client_data->defaultgateway,
+            'emailoptout'       => $client_data->emailoptout,
+            'allow_sso'         => $client_data->allow_sso,
+        ]
+    ];
+    //******************************************************************* */
+    return array_merge($order_details,$host_details,$product_details,$invoice_details,$client_details);
+}
 //=================================================================
 // function projectServiceDetails($order_id){
 //     $host_data      = Capsule::table('tblhosting')->where('orderid',$order_id)->first();
